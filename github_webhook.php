@@ -1,6 +1,8 @@
 <?php
 
-$ficheros  = scandir('/home/daoutel/public_html/');
+$ROOT_URL = $_REQUEST['ROOT_URL'];
+
+$ficheros  = scandir('/home/'.$ROOT_URL.'/public_html/');
 
 foreach($ficheros as $files){
 
