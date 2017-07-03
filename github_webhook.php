@@ -1,22 +1,30 @@
 <?php
 
 $ROOT_URL = $_REQUEST['ROOT_URL'];
+$DIR= '/home/'.$ROOT_URL.'/public_html/';
 
-$ficheros  = scandir('/home/'.$ROOT_URL.'/public_html/');
+
+
+$ficheros  = scandir($DIR );
 
 foreach($ficheros as $files){
 
         $find_aci = scandir($files);
 
         foreach($find_aci as $folder){
-         if($folder == 'ACIWEB'){
+	         
+	        if($folder == 'ACIWEB'){
 
-        $exce =   exec('cd /home/daoutel/public_html/'.$files.'/'.$folder.' &&  git pull');
-        file_put_contents("github-event.log","**** ".date("Y-m-d h:i:sa").' **** '.$files.'/'.$folder." ****\n--INI--\n ".$exce."\n--END--\n",FILE_APPEND);
+		        $EXCE_IN = $DIR.$files.'/'.$folder;
 
-        echo date("Y-m-d h:i:sa").' -  '.$files.'/'.$folder.'<br>  '.$exce.'<br><br> ****** <br>';
-          }
-        }
+		        $exce =   exec('cd  '. $EXCE_IN.'  &&  git pull');
+
+		        file_put_contents("github-event.log","**** ".date("Y-m-d h:i:sa").' **** '.$EXCE_IN." ****\n--INI--\n ".$exce."\n--END--\n",FILE_APPEND);
+
+		        echo date("Y-m-d h:i:sa").' -  '.$files.'/'.$folder.'<br>  '.$exce.'<br><br> ****** <br>';
+	          }
+
+	      }
 
 
 }
